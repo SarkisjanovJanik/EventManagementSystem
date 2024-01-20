@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ff4444;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #bbb;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: #fff;
+        }
+
+        button {
+            background-color: #ff4444;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff3333;
+        }
+
+        p {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Edit Event</h2>
+
+<form th:action="@{/events/{eventId}/edit(eventId=${event.id})}" method="post" th:object="${event}">
+    <label for="name">Event Name:</label>
+    <input type="text" id="name" name="name" th:field="*{name}" required>
+
+    <label for="description">Event Description:</label>
+    <textarea id="description" name="description" th:field="*{description}"></textarea>
+
+    <label for="location">Event Location:</label>
+    <input type="text" id="location" name="location" th:field="*{location}" required>
+
+    <label for="organizer">Event Organizer:</label>
+    <select id="organizer" name="organizer.id" th:field="*{organizer.id}" required>
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+    </select>
+
+
+    <button type="submit">Update Event</button>
+</form>
+
+
+</body>
+</html>

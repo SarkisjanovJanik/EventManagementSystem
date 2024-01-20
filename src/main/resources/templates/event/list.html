@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #ff4444;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background: #333;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+            color: #fff;
+        }
+
+        th {
+            background-color: #ff4444;
+        }
+
+        tr:hover {
+            background-color: #444;
+        }
+
+        button, a {
+            background-color: #ff4444;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        button:hover, a:hover {
+            background-color: #ff3333;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h2>Event List</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Event name</th>
+        <th>Location</th>
+        <th>Organizer</th>
+        <th>Actions</th>
+        <th>Add Attendees</th>
+        <th>Delete Attendees</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.id}"></td>
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.location}"></td>
+        <td th:text="${event.organizer.username}"></td>
+        <td>
+            <a th:href="@{/events/{eventId}(eventId=${event.id})}" th:text="'Details'">Details</a> |
+            <a th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Edit</a> |
+            <a th:href="@{/events/{eventId}/delete(eventId=${event.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+
+        </td>
+        <td>
+            <form th:action="@{/events/{eventId}/addAttendees(eventId=${event.id})}" method="get">
+                <button type="submit">Add</button>
+            </form>
+        </td>
+
+        <td>
+            <a th:href="@{/events/{eventId}/deleteAttendees(eventId=${event.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p><a th:href="@{/events/create}">Create New Event</a></p>
+<a th:href="@{/users}">Go to User List</a>
+</body>
+</html>

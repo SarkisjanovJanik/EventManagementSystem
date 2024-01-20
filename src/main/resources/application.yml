@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/EventsAndUsers
+    username: root
+    password: Qwerty1995@
+  jpa:
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+

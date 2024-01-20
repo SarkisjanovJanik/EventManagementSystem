@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #ff4444;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background: #333;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+            color: #fff;
+        }
+
+        th {
+            background-color: #ff4444;
+        }
+
+        tr:hover {
+            background-color: #444;
+        }
+
+        a {
+            background-color: #ff4444;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: #ff3333;
+        }
+    </style>
+</head>
+<body>
+<h2>Event Details</h2>
+
+<p><strong>ID:</strong> <span th:text="${event.id}"></span></p>
+<p><strong>Name:</strong> <span th:text="${event.name}"></span></p>
+<p><strong>Description:</strong> <span th:text="${event.description}"></span></p>
+<p><strong>Location:</strong> <span th:text="${event.location}"></span></p>
+<p><strong>Organizer:</strong> <span th:text="${event.organizer.username}"></span></p>
+
+<h3>Attendees:</h3>
+<ul>
+    <li th:each="attendee : ${event.attendees}" th:text="${attendee.username}"></li>
+</ul>
+
+<p><a th:href="@{/events/list}">Back to Event List</a></p>
+</body>
+</html>
+
